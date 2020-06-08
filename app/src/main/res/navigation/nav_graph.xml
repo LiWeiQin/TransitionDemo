@@ -20,7 +20,10 @@
         android:name="cn.changhsqinda.transition.SecondFragment"
         android:label="@string/second_fragment_label"
         tools:layout="@layout/fragment_second">
-
+        <argument
+            android:name="position"
+            app:argType="integer"
+            app:nullable="false" />
         <action
             android:id="@+id/action_SecondFragment_to_FirstFragment"
             app:destination="@id/FirstFragment" />
