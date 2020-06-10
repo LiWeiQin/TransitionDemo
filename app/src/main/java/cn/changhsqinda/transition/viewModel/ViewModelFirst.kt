@@ -9,6 +9,8 @@ class ViewModelFirst : ViewModel() {
 
     val toImageFragment = MutableLiveData<Event<Int>>()
 
+    var testID: String = "testId"
+
     fun itemClick(position: Int) {
         toImageFragment.value = Event(position)
     }

@@ -19,7 +19,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
             android:paddingStart="8dp"
             android:paddingEnd="8dp"
             android:scrollbarStyle="outsideOverlay"
@@ -27,6 +27,7 @@
             app:bindImageData="@{ImageData.IMAGE_DRAWABLES}"
             app:bindImageViewModel="@{viewModel}"
             app:layoutManager="GridLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:spanCount="@integer/grid_span_count"
             tools:listitem="@layout/layout_grid_layout_item" />
     </androidx.constraintlayout.widget.ConstraintLayout>

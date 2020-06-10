@@ -9,21 +9,31 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import cn.changhsqinda.transition.databinding.LayoutViewpagerImageBinding
 import cn.changhsqinda.transition.viewModel.ViewModelSecond
+import com.arcns.core.util.Event
+import kotlinx.coroutines.*
 
 
-@BindingAdapter(value = ["bindSecondViewModel", "bindImageData","bindCurrItemPosition"], requireAll = true)
-fun bindSecondViewModel(viewPager: ViewPager2, viewModel: ViewModelSecond, data: IntArray?, currentItemPosition : Int = 0) {
+@BindingAdapter(
+    value = ["bindSecondViewModel", "bindImageData", "bindCurrItemPosition"],
+    requireAll = true
+)
+fun bindSecondViewModel(
+    viewPager: ViewPager2,
+    viewModel: ViewModelSecond,
+    data: IntArray?,
+    currentItemPosition: Int = 0
+) {
     if (viewPager.adapter == null) {
-        viewPager.adapter = ImageAdapter()
+        viewPager.adapter = ImageAdapter(viewModel)
     }
     data?.let {
         (viewPager.adapter as ImageAdapter).submitList(it.toMutableList())
     }
     viewPager.setCurrentItem(currentItemPosition, false)
-
 }
 
-class ImageAdapter : ListAdapter<Int, ImageViewHolder>(diffCallback) {
+class ImageAdapter(private val viewModel: ViewModelSecond) :
+    ListAdapter<Int, ImageViewHolder>(diffCallback) {
 
     companion object {
         private val diffCallback = object : DiffUtil.ItemCallback<Int>() {
@@ -42,16 +52,19 @@ class ImageAdapter : ListAdapter<Int, ImageViewHolder>(diffCallback) {
     }
 
     override fun onBindViewHolder(holder: ImageViewHolder, position: Int) {
-        holder.bindTo(getItem(position))
+        holder.itemView.tag = position.toString()
+        holder.bindTo(getItem(position), position)
+        if (position == viewModel.position) {
+            viewModel.viewInvited.value = Event(true)
+        }
     }
-
 }
 
 class ImageViewHolder(private val binding: LayoutViewpagerImageBinding) :
     RecyclerView.ViewHolder(binding.root) {
-
-    fun bindTo(resId: Int) {
+    fun bindTo(resId: Int, position: Int) {
         binding.image.setImageResource(resId)
+        binding.position = position
     }
 
 }

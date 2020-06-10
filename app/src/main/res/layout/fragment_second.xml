@@ -8,6 +8,7 @@
         <variable
             name="currItemPosition"
             type="Integer" />
+
         <variable
             name="viewModel"
             type="cn.changhsqinda.transition.viewModel.ViewModelSecond" />
@@ -23,8 +24,8 @@
             android:id="@+id/view_pager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:bindImageData="@{ImageData.IMAGE_DRAWABLES}"
             app:bindCurrItemPosition="@{currItemPosition}"
+            app:bindImageData="@{ImageData.IMAGE_DRAWABLES}"
             app:bindSecondViewModel="@{viewModel}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
